@@ -11,6 +11,7 @@ STARALLIANCE = ["Adria Airways", "Aegean Airlines", "Air Canada", "Air China", "
 SKYTEAM = ["Aeroflot", "Aerolineas Argentias", "Aeromexico", "Air Europa", "Air France/KLM", "Alitalia", "China Airlines", "China Eastern Airlines", "China Southern Airlines", "Czech Airlines", "Delta Air Lines", "Garuda Indonesia", "Kenya Airways", "Korean Air", "Middle East Airlines", "Saudia", "TAROM", "Vietnam Airlines", "XiamenAir"]
 
 
+
 def welcome
     puts "Welcome! Please choose your loyalty program:"
     puts "Amex"
@@ -24,14 +25,17 @@ def welcome
     if valid_input?(input)
       #lists transfer options if valid
       transfer_options(input)
+      alliance_bookings(input)
+      start_over
 
 
     else
       #runs welcome until a user enters a valid input
       welcome
     end #end if/else
-
 end #ends welcome
+
+
 
 def valid_input? (input)
   #if statement verifies valid input to continue
@@ -44,8 +48,8 @@ def valid_input? (input)
   elsif input == "citi"
     return true
   end #ends if/else statement
-
 end #ends valid_input?
+
 
 
 def transfer_options (input)
@@ -66,7 +70,6 @@ def transfer_options (input)
       return CITI
 
     end #ends if/else statement
-
 end
 
 
@@ -91,8 +94,8 @@ def alliance_bookings (input)
     end #ends if/else
 
     search_alliances (airline_search)
-
 end #ends alliance_bookings
+
 
 
 def valid_airline?(user_selection, program_list)
@@ -103,7 +106,6 @@ def valid_airline?(user_selection, program_list)
       else
         return false
       end
-
 end  #ends #valid_airline?
 
 
@@ -129,8 +131,9 @@ def search_alliances (user_selection)
         puts "This airline is not part of an alliance"
 
       end #ends if/elsif/else
-
 end #ends #search_alliances
+
+
 
 def start_over
 
