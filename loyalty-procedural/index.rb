@@ -11,7 +11,7 @@ STARALLIANCE = ["Adria Airways", "Aegean Airlines", "Air Canada", "Air China", "
 SKYTEAM = ["Aeroflot", "Aerolineas Argentias", "Aeromexico", "Air Europa", "Air France/KLM", "Alitalia", "China Airlines", "China Eastern Airlines", "China Southern Airlines", "Czech Airlines", "Delta Air Lines", "Garuda Indonesia", "Kenya Airways", "Korean Air", "Middle East Airlines", "Saudia", "TAROM", "Vietnam Airlines", "XiamenAir"]
 
 
-
+#begins the program, and will eventually take in user input when CLI is functional.
 def welcome
     puts "Welcome! Please choose your loyalty program:"
     puts "Amex"
@@ -23,9 +23,12 @@ def welcome
 
     #checks if input is valid
     if valid_input?(input)
-      #lists transfer options if valid
+      #lists transfer options if valid_input returns true)
       transfer_options(input)
+      #asks user for input on airline preference. Will list alliance partners
       alliance_bookings(input)
+      #asks user to either start over or end session after alliance bookings are repeated.
+      #could be used in future to keep seeing partner options??
       start_over
 
 
@@ -39,6 +42,7 @@ end #ends welcome
 
 def valid_input? (input)
   #if statement verifies valid input to continue
+  #in event that none of statements return true, welcome function will run again
   if input == "amex"
     return true
 
@@ -51,7 +55,7 @@ def valid_input? (input)
 end #ends valid_input?
 
 
-
+#runs after credit card program input is valid. Outputs and returns full list (from constants above).
 def transfer_options (input)
   puts "You have selected the #{input.capitalize} loyalty program"
   puts "You can transfer your points to the following airlines and hotel chains:"
@@ -73,7 +77,8 @@ def transfer_options (input)
 end
 
 
-
+#called after user inputs a correct credit card program.
+#will get user input for selected airline to see alliance when CLI is active
 def alliance_bookings (input)
 
     puts " "
@@ -84,20 +89,20 @@ def alliance_bookings (input)
     #user_selection = gets.strip
 
     #if valid_airline? (user_selection, transfer_options (input))
+    #returns true if airline is present is avalid option.
     if valid_airline?(user_selection, program_list)
 
       puts "You can book flights on these airlines by transferring your points to #{user_selection}:"
-      puts search_alliances (user_selection)
+      search_alliances (user_selection)
 
+      #runs until valid input
     else
       alliance_bookings
     end #ends if/else
-
-    search_alliances (airline_search)
 end #ends alliance_bookings
 
 
-
+#checks if airline choice is a valid suggestion. This function checks the user selection again the credit card program list, selected earlier.
 def valid_airline?(user_selection, program_list)
 
       if program_list.include? user_selection
@@ -109,7 +114,7 @@ def valid_airline?(user_selection, program_list)
 end  #ends #valid_airline?
 
 
-
+#searches airline after valid airline is selected. Checks the three major alliances and returns full alliance list if successful. Each airline can join a maximum of one alliance.
 def search_alliances (user_selection)
 
       if ONEWORLD.include? user_selection
@@ -127,6 +132,7 @@ def search_alliances (user_selection)
         puts SKYTEAM
         return SKYTEAM
 
+        #not all airlines are part of alliances, so this is a possible result.
       else
         puts "This airline is not part of an alliance"
 
@@ -134,7 +140,7 @@ def search_alliances (user_selection)
 end #ends #search_alliances
 
 
-
+#prompts users to restart from beginning or end program. User input after CLI is functional.
 def start_over
 
   puts "Would you like to see more options from the beginning?"
